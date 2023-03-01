@@ -1,0 +1,57 @@
+
+import os
+#create a class called piece.
+class piece:
+    
+    #set what is needed for pieces.
+    def __init__(self,name,color,value,texture =None,texture_rect=None):
+        self.name = name
+        self.color = color
+        value_sign = 1 if color == 'white' else -1
+        self.value = value * value_sign
+        self.moves = []
+        self.moved = False
+        self.texture = texture
+        self.set_texture()
+        self.texture_rect = texture_rect
+    
+    #gets the images for the pieces.
+    def set_texture(self,size = 80):
+        self.texture = os.path.join(
+            f'assets/imagies/imgs-{size}px/{self.color}_{self.name}.png')
+        
+    def add_moves (self,move):
+        self.moves.append(move)
+    
+#create a pawn.    
+class pawn(piece):
+    
+    #allows white pawns to move up and black pawns to move down. Its value is set at 1.
+    def __init__(self, color):
+        self.dir = -1 if color == 'white' else 1
+        super().__init__('pawn', color, 1.0)
+        
+#create a knight. Its value is set at three.
+class knight(piece):
+    def __init__(self, color):
+        super().__init__('knight', color, 3.0)
+        
+#create a biship. its value is set slightly above 3.        
+class bishop(piece):
+    def __init__(self, color):
+        super().__init__('bishop', color, 3.001)
+
+#create rook. Its value is set at 5.        
+class rook(piece):
+    def __init__(self, color):
+        super().__init__('rook', color, 5.0)
+
+#create queen. value set at 9. 
+class queen(piece):
+    def __init__(self, color):
+        super().__init__('queen', color, 9.0)
+
+#create king with obsurdly high value.        
+class king(piece):
+    def __init__(self, color):
+        super().__init__('king', color, 10000.0)
